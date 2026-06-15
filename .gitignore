@@ -1,0 +1,26 @@
+# PowerShell
+*.ps1~
+*.ps1.bak
+*.psc1
+*.psm1
+*.psd1
+.PSScriptAnalyzerSettings.psd1
+*_History.txt
+
+# IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# OS
+Thumbs.db
+.DS_Store
+*.tmp
+
+# Logs
+*.log
+logs/
+
+# VPN backups
+*.vpn.bak
+*.config.bak
