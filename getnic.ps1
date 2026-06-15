@@ -1,12 +1,15 @@
-$adapters = Get-NetAdapter -IncludeHidden | Sort-Object InterfaceIndex
+# Получаем только физические/активные адаптеры (исключаем туннельные и WAN Miniport)
+$adapters = Get-NetAdapter -IncludeHidden | 
+    Where-Object { 
+        $_.InterfaceDescription -notmatch 'WAN Miniport|6to4|IP-HTTPS|Teredo|отладчик ядра' -and
+        $_.Status -eq 'Up'
+    } |
+    Sort-Object InterfaceIndex
 
 $result = foreach ($nic in $adapters) {
-    # Проверка: есть ли у адаптера IP-интерфейс
-    $hasIPInterface = Get-NetIPInterface -InterfaceAlias $nic.InterfaceAlias -ErrorAction SilentlyContinue
-    
-    $cfg = if ($hasIPInterface) {
+    $cfg = try {
         Get-NetIPConfiguration -InterfaceAlias $nic.InterfaceAlias -Detailed -ErrorAction SilentlyContinue
-    } else {
+    } catch {
         $null
     }
 
