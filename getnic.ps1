@@ -1,7 +1,7 @@
-# Получаем только физические/активные адаптеры (исключаем туннельные и WAN Miniport)
+# Get only physical/active adapters (exclude tunnel and WAN Miniport)
 $adapters = Get-NetAdapter -IncludeHidden | 
     Where-Object { 
-        $_.InterfaceDescription -notmatch 'WAN Miniport|6to4|IP-HTTPS|Teredo|отладчик ядра' -and
+        $_.InterfaceDescription -notmatch 'WAN Miniport|6to4|IP-HTTPS|Teredo|Kernel Debug' -and
         $_.Status -eq 'Up'
     } |
     Sort-Object InterfaceIndex
@@ -30,5 +30,5 @@ $result = foreach ($nic in $adapters) {
     }
 }
 
-# Вывод в виде интерактивного окна с таблицей
+# Output as interactive window with table
 $result | Out-GridView -Title "NetAdapters" -PassThru
