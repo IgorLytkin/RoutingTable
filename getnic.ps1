@@ -1,3 +1,19 @@
+<#
+.SYNOPSIS
+    Display active network adapters with detailed information
+
+.DESCRIPTION
+    Интерактивный просмотр сетевых адаптеров с фильтрацией:
+    - Только физические адаптеры (исключает туннели, WAN Miniport)
+    - Отображение в интерактивной таблице (Out-GridView)
+    - Параметры: MAC, Link Speed, IPv4/IPv6, Gateway, DNS, Profile
+
+.NOTES
+    Requires PowerShell 5.1+
+    Out-GridView requires Windows 10/11 with graphical interface
+    Compatible with Windows 10/11, Windows Server 2016+
+#>
+
 # Get only physical/active adapters (exclude tunnel and WAN Miniport)
 $adapters = Get-NetAdapter -IncludeHidden | 
     Where-Object { 
@@ -31,4 +47,4 @@ $result = foreach ($nic in $adapters) {
 }
 
 # Output as interactive window with table
-$result | Out-GridView -Title "NetAdapters" -PassThru
+$result | Out-GridView -Title "Network Adapters" -PassThru
