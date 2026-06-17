@@ -8,7 +8,7 @@
 
 .PARAMETER ServerAddress
     IP адрес или FQDN strongSwan сервера
-    По умолчанию: 45.152.86.79
+    По умолчанию: singularity.lytkins.ru
 
 .PARAMETER Username
     Имя пользователя для VPN подключения
@@ -39,7 +39,7 @@
 #>
 
 param(
-    [string]$ServerAddress = "45.152.86.79",
+    [string]$ServerAddress = "singularity.lytkins.ru",
     [string]$Username = "winuser",
     [string]$ConnectionName = "roadwarrior",
     [string]$DnsSuffix = "singularity.local"
